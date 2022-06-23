@@ -1,0 +1,55 @@
+---
+title: "Presentation WTA"
+subtitle: "Violin Plot of Winning Percentage"  
+author: 
+  - "Phong Hoang"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: github
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: true
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width=8.25, fig.height=3.5, fig.retina=3,
+  out.width = "100%",
+  cache = FALSE,
+  echo = TRUE,
+  message = FALSE, 
+  warning = FALSE,
+  hiline = TRUE
+)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#DC4C4C",
+  secondary_color = "#157394",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+
+### Failing First Serve Results In Worse Point Winning Percentage
+- 3 possible outcomes of serving: first serve in, second serve in and double faults
+
+```{r plot-example, echo = FALSE}
+player_serve_stats <- read.csv("file.csv")
+player_serve_stats %>%
+  ggplot(aes(y = value,x = name)) + 
+  geom_violin() + 
+  geom_boxplot(width = .2) +
+  labs(x="Category", y = "Point Winning Percentage")+ 
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_x_discrete(labels = c('First Serve','Second Serve W/o Double Faults','Second Serve'))
+```
+
